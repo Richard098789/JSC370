@@ -46,8 +46,6 @@ Notes:
 
 ```{python}
 jupyter: "Python (geopandas)"
-import sys
-print(sys.executable)
 import pandas as pd
 pd.set_option("display.float_format", "{:.2f}".format) 
 import numpy as np
@@ -72,11 +70,11 @@ met = pd.read_csv(url)
 - fill in where there are ...
 
 ```{python}
-met.memory_usage(deep=True).sum() / ...
+met.memory_usage(deep=True).sum() / (1024 ** 2)
 ```
 
 ```{python}
-met.shape[...]
+met.shape[0], met.shape[1]
 ```
 
 ```{python}
@@ -84,8 +82,9 @@ met.head
 ```
 
 Summary:
-- add bullets with your summary
-
+- Dataset size: 2520MB
+- Number of rows: 5381580
+- Number of columns: 30
 ### 3. Look at data types of the variables in the dataset.
 
 ```{python}
@@ -93,7 +92,7 @@ met.info
 ```
 
 Summary:
-- add bullets with your summary
+- Float
 
 ### 4. Take a closer look at the key variables (`temp` and `elev`). 
 
@@ -103,27 +102,30 @@ Summary:
 ```{python}
 key_vars = ['temp', 'elev']
 
-met[...].isnull().sum()
+met[key_vars].isnull().sum()
 ```
 
 
 - Are there any unusual values that look suspicious?
-
+No missing data in `temp` and `elev`
 
 ```{python}
 
-minT = met['temp']
-maxT = ...
+minT = met['temp'].min()
+maxT = met['temp'].max()
 
-minE = met['elev']
-maxE = ...
+minE = met['elev'].min()
+maxE = met['elev'].max()
 
-pring(minT, maxT, minE, maxE)
+print(minT, maxT, minE, maxE)
 
 ```
 
 Summary:
-- Add your summary here
+- Minimum temperature: -40.0
+- Maximum temperature: 999.9
+- Minimum elevation: -35.0
+- Maximum elevation: 3680.0
 
 
 ### 5. Check the data against an external data source and make any other adjustments.
@@ -134,19 +136,20 @@ Summary:
 -
 ```{python}
 
-met.loc[...] = np.nan
+met.loc[met['temp'] > 60, 'temp'] = np.nan
 met[['temp']].describe().round(4)
 ```
 
-Summary:
+Summary:Removed temperatures greater than 60
 
 ```{python}
-cold_temps = met[met['temp'] ...]
+cold_temps = met[met['temp'] < 0]
 
 # display data here extract lat and lon and check google
+cold_temps[['lat', 'lon']].describe()
 ```
 
-Summary:
+Summary:345 rows of data with temperatures less than 0, latitude range from 28 to 47, longitude range from -120 to -71
 
 ```{python}
 
@@ -171,13 +174,18 @@ Some ideas for steps:
 
 ```{python}
 # Subset data for the weather station with minimum elevation
-
+min_elev = met['elev'].min()
+min_elev_station = met[met['elev'] == min_elev].copy()
+display(min_elev_station)
 ```
 
 ### 6b. Histogram of temperature at minimum elevation site
 
 ```{python}
-plt.hist(...)
+plt.hist(min_elev_station['temp'])
+plt.xlabel('Temperature')
+plt.ylabel('Frequency')
+plt.show()
 ```
 
 ### 6c. Create date variable and time series plot
@@ -191,7 +199,7 @@ plt.hist(...)
 # Create a date variable for min_elev_station
 min_elev_station = min_elev_station.copy()
 min_elev_station['date'] = pd.to_datetime(
-    min_elev_station[...]
+    min_elev_station['date']
 )
 
 # Sort by date
@@ -199,18 +207,18 @@ min_elev_station = min_elev_station.sort_values('date')
 
 # Create line plot of temperature by date
 
-plt.plot(...)
-plt.xlabel()
-plt.ylabel()
+plt.plot(min_elev_station['date'], min_elev_station['temp'])
+plt.xlabel('Date')
+plt.ylabel('Temperature')
 plt.show()
 ```
 
-Summarize time series plot:
+Summarize time series plot: The temperature gradually increases from 6-20 to 7-01, 2025
 
 ### 6d. Where is the lowest weather station?
 
 ```{python}
-station_location = min_elev_station[...].drop_duplicates()
+station_location = min_elev_station[['lat', 'lon', 'elev']].drop_duplicates()
 
 lat = station_location['lat'].iloc[0]
 lon = station_location['lon'].iloc[0]
@@ -237,3 +245,4 @@ plt.show()
 ```
 
 Summarize where the lowest elevation station is located.
+- The lowest elevation station is located at Indigo
