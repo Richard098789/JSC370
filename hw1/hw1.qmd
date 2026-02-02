@@ -1,0 +1,230 @@
+---
+title: "Lab 02 - GitHub"
+subtitle: "JSC370 (Winter 2026)"
+date: "January 14, 2026"
+format:
+  live-html:
+    toc: true
+jupyter: python3
+execute:
+  enabled: true
+  echo: true
+  warning: false
+  message: false
+---
+
+# Steps
+
+### 1. Read in the data
+```{python}
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('Major_Crime_Indicators_Open_Data_-3805566126367379926.csv')
+cols = [
+    "MCI_CATEGORY", "OFFENCE",
+    "OCC_YEAR", "OCC_MONTH", "OCC_DAY",
+    "OCC_DOY", "OCC_HOUR",
+    "LOCATION_TYPE", "NEIGHBOURHOOD_158",
+    "LONG_WGS84", "LAT_WGS84"
+]
+
+df = df[cols]
+```
+
+```{python}
+df.isnull().sum()
+df.info()
+df.shape[0], df.shape[1]
+```
+
+Summary:
+Load the data using pandas, filter out the unnecessarry columns, then check data dimensions, data types and missing values.
+- Number of rows: 452949, Number of columns: 11.
+- Variables: MCI_CATEGORY, OFFENCE, OCC_YEAR, OCC_MONTH, OCC_DAY, OCC_DOY, OCC_HOUR, LOCATION_TYPE, NEIGHBOURHOOD_158, LONG_WGS84, LAT_WGS84.
+- Number of missing values: 151 in OCC_YEAR, OCC_MONTH, OCC_DAY, OCC_DOY.
+- Data types: object, float64, int64
+
+
+### 2. Preprocess the data
+
+```{python}
+most_common_offence = df['OFFENCE'].value_counts().idxmax()
+most_common_MCI_CATEGORY = df['MCI_CATEGORY'].value_counts().idxmax()
+print(most_common_offence, most_common_MCI_CATEGORY)
+df_2 = df[(df['OFFENCE'] == most_common_offence)
+        & (df['MCI_CATEGORY'] == most_common_MCI_CATEGORY)]
+df_2 = df_2.rename(columns={
+    "MCI_CATEGORY": "category",
+    "OFFENCE": "offence",
+    "OCC_YEAR": "year",
+    "OCC_MONTH": "month",
+    "OCC_DAY": "day",
+    "OCC_DOY": "day_of_year",
+    "OCC_HOUR": "hour",
+    "LOCATION_TYPE": "location",
+    "NEIGHBOURHOOD_158": "neighbourhood",
+    "LONG_WGS84": "lon",
+    "LAT_WGS84": "lat"
+})
+key_variables = ["category", "offence", "location", "neighbourhood", "month"]
+for i in key_variables:
+    df_2[i] = df_2[i].astype("category")
+df_2 = df_2[(df_2['hour'].between(0, 23)) & (df_2['lat'].between(43, 44)) & (df_2['lon'].between(-80, -78))]
+df_2.shape[0]
+```
+
+Summary: 
+- Check the most common offence and MCI_CATEGORY, then filter the data to only include the most common offence and MCI_CATEGORY, which are both Assualt. 
+- Rename the columns to make them more readable. 
+- Convert the categorical variables to category type. 
+- Exclude data with invalud hour and with latitude and longitude not in the range of Toronto.
+
+### 3.  Check data completeness across years
+
+```{python}
+df_2['year'].value_counts().sort_index()
+year_counts = df_2['year'].value_counts()
+complete_years = year_counts[year_counts > year_counts.mean()].index
+print(complete_years)
+df_3 = df_2[df_2['year'].isin(complete_years)]
+df_3.shape[0]
+```
+
+Summary:
+- Data with years from 2000 to 2025 are present.
+- Check the mean counts of the years and define complete years as those with counts greater than the mean.
+- Filter the data to only include the complete years (from 2014 to 2025).
+
+### 4. Examine annual change in crime
+```{python}
+annual_counts = df_3['year'].value_counts().sort_index().to_frame()
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(7,4))
+plt.plot(annual_counts.index, annual_counts["count"], marker="o")
+plt.xlabel("Year")
+plt.ylabel("Annual crime count")
+plt.title("Annual crime counts over time")
+plt.show()
+
+```
+
+```{python}
+%pip install statsmodels
+import statsmodels.api as sm
+
+X = sm.add_constant(annual_counts.index) 
+y = annual_counts["count"]
+
+poisson_model = sm.GLM(y, X,
+    family=sm.families.Poisson()
+)
+
+result = poisson_model.fit()
+result.summary()
+```
+
+```{python}
+np.exp(result.params['x1'])
+```
+Summary:
+-  The estimated rate ratio per 1-year increase is 1.02. This means the crime rate increases by 2% per year.
+- The p-value is 0.001, indicating a strong evidence of annual change in crime.
+
+### 5.  Examine seasonality in crime
+
+```{python}
+recent_year = complete_years.max()
+df_year = df_3[df_3['year'] == recent_year]
+def get_season(month):
+    if month in ["December", "January", "February"]:
+        return "Winter"
+    elif month in ["March", "April", "May"]:
+        return "Spring"
+    elif month in ["June", "July", "August"]:
+        return "Summer"
+    else:
+        return "Fall"
+
+df_year["season"] = df_year["month"].apply(get_season)
+season_counts = df_year["season"].value_counts().sort_index()
+```
+```{python}
+import matplotlib.pyplot as plt
+plt.figure(figsize=(7,4))
+plt.plot(season_counts.index, season_counts, marker="o")
+plt.xlabel("Season")
+plt.ylabel("Seasonal crime count")
+plt.title(f"Seasonal crime counts in {recent_year}")
+plt.show()
+```
+
+```{python}
+from scipy.stats import chisquare
+
+chi2_result = chisquare(season_counts)
+chi2_result
+```
+
+Summary:
+- The chi-square test is statistically significant (p-value < 0.0), indicating that the distribution of crime across seasons is not uniform.
+- From the plot, the highest crime count is in Summer, followed by Spring, then Winter, and the lowest is in Fall.
+
+### 6. Examine seasonality, day vs night
+
+```{python}
+df_year["day_night"] = df_year["hour"].apply(lambda x: "Day" if x >= 6 and x < 18 else "Night")
+table = pd.crosstab(
+    df_year["season"],
+    df_year["day_night"]
+)
+
+import seaborn as sns
+
+sns.heatmap(table)
+plt.title("Season × Day/Night crime counts")
+plt.show()
+
+from scipy.stats import chi2_contingency
+
+chi2_contingency(table)
+```
+
+Summary:
+- Define day as hours between 6am and 6pm, and night as hours between 6pm and 6am.
+- Plot a heatmap of the contingency table of season and day/night crime counts.
+- The chi-square test is statistically significant (p-value around 0.001), indicating the strong evidence that day/night distribution of crimes changes across seasons.
+- From the plot, winter has the highest night crime proportion that looks most different.
+
+### 7. Look at neighbourhood patterns
+
+```{python}
+df_neighbourhood = df_year.groupby('neighbourhood').agg(total = ('day_night', 'count'), 
+    day = ('day_night', lambda x: (x == 'Day').sum()),
+    night = ('day_night', lambda x: (x == 'Night').sum())
+)
+df_neighbourhood['night_proportion'] = df_neighbourhood['night'] / df_neighbourhood['total']
+df_neighbourhood.sort_values(by='total', ascending=False).head(10)
+```
+
+Summary:
+- The table shows the total number of crimes, the number of crimes during the day and the night, and the proportion of crimes during the night. The table shows top 10 neighbourhoods with most crimes. The top 1 is Mimico-Queensway (160).
+
+### 8. Create a map
+
+```{python}
+# %pip install folium
+import folium
+
+# Center map on Toronto
+m = folium.Map(
+    location=[43.7, -79.4],
+    zoom_start=11,
+)
+for _, point in df_year.iterrows():
+  print(point)
+  coords = (point['lat'], point['lon'])
+  folium.Marker(coords).add_to(m)
+m
+```
