@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Midterm Project - GitHub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="midterm_files/libs/clipboard/clipboard.min.js"></script>
+<script src="midterm_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="midterm_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="midterm_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="midterm_files/libs/quarto-html/popper.min.js"></script>
+<script src="midterm_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="midterm_files/libs/quarto-html/anchor.min.js"></script>
+<link href="midterm_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="midterm_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="midterm_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="midterm_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="midterm_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#github-httpsgithub.comrichard098789jsc370treemainfinal_project" id="toc-github-httpsgithub.comrichard098789jsc370treemainfinal_project" class="nav-link active" data-scroll-target="#github-httpsgithub.comrichard098789jsc370treemainfinal_project">Github https://github.com/Richard098789/JSC370/tree/main/final_project</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#method" id="toc-method" class="nav-link" data-scroll-target="#method">Method</a>
+  <ul class="collapse">
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">1. Data Collection</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">2. Data Cleaning</a></li>
+  </ul></li>
+  <li><a href="#preliminary-results" id="toc-preliminary-results" class="nav-link" data-scroll-target="#preliminary-results">Preliminary Results</a>
+  <ul class="collapse">
+  <li><a href="#basic-summary-statistics" id="toc-basic-summary-statistics" class="nav-link" data-scroll-target="#basic-summary-statistics">0. Basic Summary Statistics</a></li>
+  <li><a href="#salary-distribution" id="toc-salary-distribution" class="nav-link" data-scroll-target="#salary-distribution">1. Salary Distribution</a></li>
+  <li><a href="#salary-distribution-by-job-role" id="toc-salary-distribution-by-job-role" class="nav-link" data-scroll-target="#salary-distribution-by-job-role">2. Salary Distribution by Job Role</a></li>
+  <li><a href="#number-of-job-postings-by-job-role" id="toc-number-of-job-postings-by-job-role" class="nav-link" data-scroll-target="#number-of-job-postings-by-job-role">3. Number of Job Postings by Job Role</a></li>
+  <li><a href="#salary-distribution-by-contract-type" id="toc-salary-distribution-by-contract-type" class="nav-link" data-scroll-target="#salary-distribution-by-contract-type">4. Salary Distribution by Contract Type</a></li>
+  <li><a href="#salary-distribution-by-province" id="toc-salary-distribution-by-province" class="nav-link" data-scroll-target="#salary-distribution-by-province">5. Salary Distribution by Province</a></li>
+  <li><a href="#average-salary-by-posting-date-and-job-role" id="toc-average-salary-by-posting-date-and-job-role" class="nav-link" data-scroll-target="#average-salary-by-posting-date-and-job-role">6. Average salary by posting date and job role</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#plan" id="toc-plan" class="nav-link" data-scroll-target="#plan">Plan</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Midterm Project - GitHub</h1>
+<p class="subtitle lead">JSC370 (Winter 2026)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="github-httpsgithub.comrichard098789jsc370treemainfinal_project" class="level3">
+<h3 class="anchored" data-anchor-id="github-httpsgithub.comrichard098789jsc370treemainfinal_project">Github <a href="link">https://github.com/Richard098789/JSC370/tree/main/final_project</a></h3>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Online job postings provide valuable insights into labour market demand and skills. As a data science student currently looking for a job, I am interested in <strong>how do role type, location, and job characteristics relate to salary levels in Canadian data-related job postings? Does salary increase over time?</strong>. In this project, job posting data were collected using the Adzuna Job Search API, which collects job listings from multiple job boards and company career pages. Each job posting contains information such as the job title, company name, location, salary range, contract type, and description. These attributes make the dataset suitable for exploratory data analysis, as it includes a mix of numerical, binary and categorical variables.</p>
+</section>
+<section id="method" class="level1">
+<h1>Method</h1>
+<section id="data-collection" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection">1. Data Collection</h3>
+<ul>
+<li><p>Use Adzuna Job Search API to collect job postings data. Restrict the search range to Canada and the job title to include “data”. Convert the data into a pandas dataframe. Fetch the first num_pages pages of data, with 50 jobs per page.</p></li>
+<li><p>Collected 3750 job postings, with features: title, company, location, salary_min, salary_max, contract_type, category, created.</p></li>
+</ul>
+</section>
+<section id="data-cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="data-cleaning">2. Data Cleaning</h3>
+<ol type="1">
+<li><p>Check and remove missing values.</p></li>
+<li><p>Remove parentheses and punctuation from the job title.</p></li>
+<li><p>Filter the data to only include the job titles that contain the keywords “engineer”, “scientist”, “analyst”, or “architect”.</p></li>
+<li><p>Classify the job titles into four categories: Data Scientist, Data Analyst, Data Engineer, and Other.</p></li>
+<li><p>Calculate the median salary for each role.</p></li>
+<li><p>map the contract type to a binary variable: 1 for permanent and 0 for contract.</p></li>
+<li><p>Clean the location column. Add a location map to convert the location to province.</p></li>
+<li><p>Categorize the salary into low, medium, and high.</p></li>
+<li><p>Convert the created date to datetime.</p></li>
+</ol>
+</section>
+</section>
+<section id="preliminary-results" class="level1">
+<h1>Preliminary Results</h1>
+<section id="basic-summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="basic-summary-statistics">0. Basic Summary Statistics</h3>
+<p>The cleaned dataset contains 371 job postings related to data-focused roles across 9 Canadian provinces. These postings are grouped into 3 primary job role categories, including Data Scientist, Data Analyst, and Data Engineer. The job postings are collected from 2024-07-30 to 2026-03-13. Most jobs are posted in the past 6 months.</p>
+</section>
+<section id="salary-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="salary-distribution">1. Salary Distribution</h3>
+<div id="7b462127" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>count       382.000000
+mean     124623.425393
+std       48658.694030
+min          47.500000
+25%       91531.000000
+50%      119600.000000
+75%      157125.000000
+max      280800.000000
+Name: salary_mid, dtype: float64</code></pre>
+</div>
+</div>
+<p>Visualize the distribution of the salary midpoints.</p>
+<div id="ee3b9c2f" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>Text(0, 0.5, 'Number of Job Postings')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="midterm_files/figure-html/cell-14-output-2.png" width="585" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure shows the distribution of salary midpoint values. Most job postings fall within a middle salary range, while a smaller number of postings list substantially higher salaries.</p>
+</section>
+<section id="salary-distribution-by-job-role" class="level3">
+<h3 class="anchored" data-anchor-id="salary-distribution-by-job-role">2. Salary Distribution by Job Role</h3>
+<div id="de761fcf" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">median</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">role</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Data Analyst</th>
+<td>122</td>
+<td>96746.0</td>
+<td>92900.0</td>
+<td>38467.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data Engineer</th>
+<td>197</td>
+<td>144098.0</td>
+<td>140000.0</td>
+<td>47417.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Data Scientist</th>
+<td>63</td>
+<td>117712.0</td>
+<td>118554.0</td>
+<td>42087.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="91cdac52" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>Text(0, 0.5, 'Salary Midpoint')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="midterm_files/figure-html/cell-16-output-2.png" width="618" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure compares salary distributions across job roles. Data Engineer has highest salary, then Data Scientist roles, with Data Analyst roles having the lowest salary. Data Enguneer also has a high variance in salary.</p>
+</section>
+<section id="number-of-job-postings-by-job-role" class="level3">
+<h3 class="anchored" data-anchor-id="number-of-job-postings-by-job-role">3. Number of Job Postings by Job Role</h3>
+<div id="7b599ba7" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>Text(0, 0.5, 'Number of Job Postings')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="midterm_files/figure-html/cell-17-output-2.png" width="593" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure shows the number of job postings by job role. Data Engineer has the most job postings, followed by Data Analyst, and Data Scientist has the least job postings.</p>
+</section>
+<section id="salary-distribution-by-contract-type" class="level3">
+<h3 class="anchored" data-anchor-id="salary-distribution-by-contract-type">4. Salary Distribution by Contract Type</h3>
+<div id="c741c9ae" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>Text(0, 0.5, 'Salary Midpoint')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="midterm_files/figure-html/cell-18-output-2.png" width="618" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure shows the salary distribution by contract type. Permanent contracts have around same salary compared to contract jobs. (~100000)</p>
+</section>
+<section id="salary-distribution-by-province" class="level3">
+<h3 class="anchored" data-anchor-id="salary-distribution-by-province">5. Salary Distribution by Province</h3>
+<div id="3c69b7e7" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">province</th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">median</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Alberta</td>
+<td>11</td>
+<td>108828.0</td>
+<td>106745.0</td>
+<td>32861.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>British Columbia</td>
+<td>45</td>
+<td>108837.0</td>
+<td>100000.0</td>
+<td>40892.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Manitoba</td>
+<td>5</td>
+<td>107944.0</td>
+<td>90000.0</td>
+<td>42698.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>New Brunswick</td>
+<td>2</td>
+<td>92500.0</td>
+<td>92500.0</td>
+<td>3536.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Nova Scotia</td>
+<td>5</td>
+<td>96000.0</td>
+<td>95000.0</td>
+<td>6275.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>Ontario</td>
+<td>196</td>
+<td>126917.0</td>
+<td>120000.0</td>
+<td>51779.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>Other</td>
+<td>2</td>
+<td>113277.0</td>
+<td>113277.0</td>
+<td>32918.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>Quebec</td>
+<td>10</td>
+<td>114965.0</td>
+<td>117500.0</td>
+<td>17342.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>Unknown</td>
+<td>106</td>
+<td>132592.0</td>
+<td>125000.0</td>
+<td>49105.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="09d0af25" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>([0, 1, 2, 3, 4, 5, 6, 7, 8],
+ [Text(0, 0, 'Ontario'),
+  Text(1, 0, 'Quebec'),
+  Text(2, 0, 'British Columbia'),
+  Text(3, 0, 'Manitoba'),
+  Text(4, 0, 'Unknown'),
+  Text(5, 0, 'Alberta'),
+  Text(6, 0, 'Nova Scotia'),
+  Text(7, 0, 'Other'),
+  Text(8, 0, 'New Brunswick')])</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="midterm_files/figure-html/cell-20-output-2.png" width="639" height="486" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure shows the salary distribution by province. Jobs with region not posted in Canada has the highest salary, followed by Ontario, Quebec, and Manitoba, Nova Scotia, New Brunswick have lower salary.</p>
+</section>
+<section id="average-salary-by-posting-date-and-job-role" class="level3">
+<h3 class="anchored" data-anchor-id="average-salary-by-posting-date-and-job-role">6. Average salary by posting date and job role</h3>
+<div id="1fe65bee" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>(array([19905., 19967., 20028., 20089., 20148., 20209., 20270., 20332.,
+        20393., 20454., 20513.]),
+ [Text(19905.0, 0, '2024-07'),
+  Text(19967.0, 0, '2024-09'),
+  Text(20028.0, 0, '2024-11'),
+  Text(20089.0, 0, '2025-01'),
+  Text(20148.0, 0, '2025-03'),
+  Text(20209.0, 0, '2025-05'),
+  Text(20270.0, 0, '2025-07'),
+  Text(20332.0, 0, '2025-09'),
+  Text(20393.0, 0, '2025-11'),
+  Text(20454.0, 0, '2026-01'),
+  Text(20513.0, 0, '2026-03')])</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="midterm_files/figure-html/cell-21-output-2.png" width="585" height="485" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b9386368" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>(array([19905., 19967., 20028., 20089., 20148., 20209., 20270., 20332.,
+        20393., 20454., 20513.]),
+ [Text(19905.0, 0, '2024-07'),
+  Text(19967.0, 0, '2024-09'),
+  Text(20028.0, 0, '2024-11'),
+  Text(20089.0, 0, '2025-01'),
+  Text(20148.0, 0, '2025-03'),
+  Text(20209.0, 0, '2025-05'),
+  Text(20270.0, 0, '2025-07'),
+  Text(20332.0, 0, '2025-09'),
+  Text(20393.0, 0, '2025-11'),
+  Text(20454.0, 0, '2026-01'),
+  Text(20513.0, 0, '2026-03')])</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="midterm_files/figure-html/cell-22-output-2.png" width="618" height="485" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure shows a salary trend by posting date and job role. All 3 roles have similar salary trend, with a slight increase in salary over time.</p>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>After cleaning and processing the data, the analysis would focus on several key features including job role, location, contract type and created date.</p>
+<p>The exploratory analysis revealed several preliminary patterns in the dataset. First, salary distributions differ across job roles. Positions categorized as Data Engineer and Data Scientist generally have higher salary ranges compared to Data Analyst roles.</p>
+<p>Second, the geographic distribution of job postings is uneven across Canada. A large proportion of postings in the dataset are located in Ontario, while smaller numbers appear in provinces such as British Columbia, Quebec, and Alberta. Salary distributions also vary across provinces, although the number of observations in some regions is relatively small. These geographic differences suggest that regional job markets may influence salary levels.</p>
+<p>Third, the temporal trend analysis shows that average salary have been increasing over time since 2024, with a slight decrease in 2025. Since most job fetched are from recent time, if more job postings are collected from older time, we can further investigate the trend.</p>
+</section>
+<section id="plan" class="level1">
+<h1>Plan</h1>
+<p>First, I wll expand the data size by fetching more job postings using Adzuna API to include more job postings from older time. This would help learn more about the trend of salary over time.</p>
+<p>Next I will use ML methods to further explore the relationship between salary and other features. As an initial baseline, a linear regression model will be fitted to estimate salary based on features such as job role, geographic location, contract type, and posting date. To capture potential nonlinear relationships, models such as GAM will also be used. Finally, ensemble learning methods including random forests and gradient boosting will be used to improve predictive performance and identify the most important factors influencing salary.</p>
+<p>I would focus on exploring role type, and whether different months of a year have different salary levels. I would also focus on exploring region and compare them with actual Canadian geographic boundaries to better understand regional job market patterns.</p>
+<p>The result of the model will be added to interactive website, where user can pick the features they are interested in and see the predicted salary.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
