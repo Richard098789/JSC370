@@ -16,7 +16,10 @@ execute:
 
 # Introduction
 Online job postings provide valuable insights into labour market demand and skills. As a data science student currently looking for a job, I am interested in **how do role type, location, and job characteristics relate to salary levels in Canadian data-related job postings? Does salary increase over time?**. 
+
 In this project, job posting data were collected using the Adzuna Job Search API, which collects job listings from multiple job boards and company career pages. Each job posting contains information such as the job title, company name, location, salary range, contract type, and description. These attributes make the dataset suitable for exploratory data analysis, as it includes a mix of numerical, binary and categorical variables.
+
+The goal of this project is to explore patterns in salary levels across different job characteristics. In particular, the analysis focuses on comparing salaries across major data-related roles such as data scientists, data engineers, and data analysts, as well as examining geographic differences across Canadian regions. Additional exploratory analysis investigates whether the of job posting date is associated with variations in salary levels.
 
 # Method
 
