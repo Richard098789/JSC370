@@ -1,0 +1,65 @@
+---
+title: "hw3 - GitHub"
+subtitle: "JSC370 (Winter 2026)"
+date: "January 14, 2026"
+format:
+  html:
+    toc: true
+jupyter: python3
+execute:
+  enabled: true
+  echo: true
+  warning: false
+  message: false
+---
+
+# 
+ADZUNA_API_KEY = "90420aa2d69109d0658ba473fbae9572"
+ADZUNA_APP_ID = "d34356b4"
+```{python}
+import requests
+import pandas as pd
+
+APP_ID = "d34356b4"
+APP_KEY = "90420aa2d69109d0658ba473fbae9572"
+
+jobs = []
+
+for page in range(1, 10):
+
+    url = f"https://api.adzuna.com/v1/api/jobs/ca/search/{page}"
+
+    params = {
+        "app_id": APP_ID,
+        "app_key": APP_KEY,
+        "what": "data",
+        "results_per_page": 50
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    for job in data["results"]:
+        jobs.append({
+            "title": job["title"],
+            "company": job["company"]["display_name"],
+            "location": job["location"]["display_name"],
+            "salary_min": job.get("salary_min"),
+            "salary_max": job.get("salary_max"),
+            "contract_type": job.get("contract_type"),
+            "category": job["category"]["label"],
+            "created": job["created"]
+        })
+
+df = pd.DataFrame(jobs)
+
+print(df.head())
+print("Total rows:", len(df))
+```
+
+
+```{python}
+data["results"][0]
+```
+
+
